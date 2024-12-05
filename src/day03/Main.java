@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,11 +15,24 @@ public class Main {
         try(BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             String input = "";
-            
             while((line = reader.readLine()) != null) {
                 input = input.concat(line);
             }
+            
+            System.out.println("PART ONE SOLUTION: ");
             System.out.println("RESULT: " + calcMultiplicationResultsInString(input));
+            
+            String[] splitResult = input.split("(?=don't\\(\\))");
+            int total2 = calcMultiplicationResultsInString(splitResult[0]);
+            String[] disabledStrings = Arrays.copyOfRange(splitResult, 1, splitResult.length);
+            for(String split: disabledStrings) {
+                String[] reEnabled = split.split("(?=do\\(\\))", 2);
+                if(reEnabled.length > 1) {
+                    total2 += calcMultiplicationResultsInString(reEnabled[1]);
+                }
+            }
+            System.out.println("PART TWO SOLUTION:");
+            System.out.println("RESULT: " + total2);
             
         } catch(IOException e) {
             System.err.println(e.getMessage());
