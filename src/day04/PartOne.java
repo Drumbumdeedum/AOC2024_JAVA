@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Main {
+public class PartOne {
     public static void main(String[] args) {
         String fileName = "src/day04/input.txt";
         
