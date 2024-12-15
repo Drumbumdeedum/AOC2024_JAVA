@@ -1,9 +1,11 @@
 package day06.partTwo;
 
+import static day06.partTwo.GuardDirection.*;
+
 public class Guard {
     private int posX;
     private int posY;
-    private GuardDirection guardDirection = GuardDirection.UP;
+    private GuardDirection guardDirection = UP;
     
     public int getPosX() {
         return posX;
@@ -53,14 +55,14 @@ public class Guard {
     public void moveGuardUp() {
         setPosY(getPosY() - 1);
         if(getPosY() < 0) {
-            System.out.println("GUARD HAS LEFT THE MAP!");
+            //System.out.println("GUARD HAS LEFT THE MAP!");
         }
     }
     
     public void moveGuardDown(int mapHeight) {
         setPosY(getPosY() + 1);
         if(getPosY() >= mapHeight) {
-            System.out.println("GUARD HAS LEFT THE MAP!");
+            //System.out.println("GUARD HAS LEFT THE MAP!");
         }
         
     }
@@ -68,14 +70,23 @@ public class Guard {
     public void moveGuardRight(int mapWidth) {
         setPosX(getPosX() + 1);
         if(getPosX() >= mapWidth) {
-            System.out.println("GUARD HAS LEFT THE MAP!");
+            //System.out.println("GUARD HAS LEFT THE MAP!");
         }
     }
     
     public void moveGuardLeft() {
         setPosX(getPosX() - 1);
         if(getPosX() < 0) {
-            System.out.println("GUARD HAS LEFT THE MAP!");
+            //System.out.println("GUARD HAS LEFT THE MAP!");
+        }
+    }
+    
+    public void turnGuardRight() {
+        switch (getGuardDirection()) {
+            case UP -> setGuardDirection(RIGHT);
+            case DOWN -> setGuardDirection(LEFT);
+            case LEFT -> setGuardDirection(UP);
+            case RIGHT -> setGuardDirection(DOWN);
         }
     }
     

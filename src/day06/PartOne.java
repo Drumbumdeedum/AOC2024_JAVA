@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class PartOne {
     public static void main(String[] args) {
-        String fileName = "src/day06/testInput.txt";
+        String fileName = "src/day06/input.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             LabMap map = new LabMap();
@@ -73,7 +73,7 @@ public class PartOne {
                         }
                     }
                 }
-                map.printMap();
+                //map.printMap();
             }
             System.out.println(map.countUniqueMoves());
         } catch(IOException e) {

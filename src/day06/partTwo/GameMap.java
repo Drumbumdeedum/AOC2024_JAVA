@@ -32,6 +32,29 @@ public class GameMap {
         this.mapFields = mapFields;
     }
     
+    public void updateMapField(int posX, int posY, FieldType type, boolean visited) {
+        MapField field = this.mapFields.get(posY).get(posX);
+        field.setType(type);
+        field.setVisited(visited);
+        setMapField(posX, posY, field);
+    }
+    
+    public void updateMapField(int posX, int posY, FieldType type, boolean visited, GuardDirection direction) {
+        MapField field = this.mapFields.get(posY).get(posX);
+        field.setType(type);
+        field.setVisited(visited);
+        field.setEnteredWithDirection(direction);
+        setMapField(posX, posY, field);
+    }
+    
+    public void setMapField(int posX, int posY, MapField field) {
+        ArrayList<MapField> mapRow = getMapFields().get(posY);
+        mapRow.set(posX, field);
+        ArrayList<ArrayList<MapField>> updatedMap = getMapFields();
+        updatedMap.set(posY, mapRow);
+        setMapFields(updatedMap);
+    }
+    
     public void addMapRow(ArrayList<MapField> row) {
         this.mapFields.add(row);
     }
@@ -44,10 +67,33 @@ public class GameMap {
         this.guard = guard;
     }
     
+    public boolean hasNextField() {
+        return switch (getGuard().getGuardDirection()) {
+            case UP -> getGuard().getPosY() > 0;
+            case DOWN -> getGuard().getPosY() < getHeight() - 1;
+            case LEFT -> getGuard().getPosX() > 0;
+            case RIGHT -> getGuard().getPosX() < getWidth() - 1;
+        };
+    }
+    
+    public MapField nextField() {
+        return switch (getGuard().getGuardDirection()) {
+            case UP -> getMapFields().get(getGuard().getPosY() - 1).get(getGuard().getPosX());
+            case DOWN -> getMapFields().get(getGuard().getPosY() + 1).get(getGuard().getPosX());
+            case LEFT -> getMapFields().get(getGuard().getPosY()).get(getGuard().getPosX() - 1);
+            case RIGHT -> getMapFields().get(getGuard().getPosY()).get(getGuard().getPosX() + 1);
+        };
+    }
+    
+    public MapField currentField() {
+        return getMapFields().get(getGuard().getPosY()).get(getGuard().getPosX());
+    }
+    
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         for(ArrayList<MapField> mapRow: mapFields) {
+            builder.append("\n");
             for(MapField field: mapRow) {
                 if(field.getPosX() == getGuard().getPosX() && field.getPosY() == getGuard().getPosY()) {
                     builder.append(getGuard());
@@ -55,7 +101,6 @@ public class GameMap {
                     builder.append(field);
                 }
             }
-            builder.append("\n");
         }
         return builder.toString();
     }

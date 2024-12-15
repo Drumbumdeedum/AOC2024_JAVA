@@ -7,6 +7,7 @@ public class MapField {
     private int posY;
     private boolean visited;
     private FieldType type;
+    private GuardDirection enteredWithDirection;
     
     public int getPosX() {
         return posX;
@@ -40,6 +41,14 @@ public class MapField {
         this.type = type;
     }
     
+    public GuardDirection getEnteredWithDirection() {
+        return enteredWithDirection;
+    }
+    
+    public void setEnteredWithDirection(GuardDirection enteredWithDirection) {
+        this.enteredWithDirection = enteredWithDirection;
+    }
+    
     public void initTypeFromString(String type) {
         switch (type) {
             case "#" -> this.type = BLOCK;
@@ -58,6 +67,7 @@ public class MapField {
             case PATH_X -> "-";
             case PATH_Y -> "|";
             case CROSS -> "+";
+            case OBSTACLE -> "0";
         };
     }
 }
