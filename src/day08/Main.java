@@ -49,8 +49,8 @@ public class Main {
                         int dirX = currentField.getX() - compareField.getX();
                         int dirY = currentField.getY() - compareField.getY();
                         //System.out.println("DIRECTION TO CHECK X" + dirX + " Y" + dirY);
-                        if(((currentField.getX() + dirX) > -1 && (currentField.getX() + dirX) <= map[0].length) &&
-                            ((currentField.getY() + dirY) > -1 && (currentField.getY() + dirY) <= map.length)
+                        if(((currentField.getX() + dirX) > -1 && (currentField.getX() + dirX) < map[0].length) &&
+                            ((currentField.getY() + dirY) > -1 && (currentField.getY() + dirY) < map.length)
                         ) {
                             //System.out.println("POSSIBLE");
                             String field = Integer.toString(currentField.getX() + dirX).concat(Integer.toString(currentField.getY() + dirY));
